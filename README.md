@@ -1,9 +1,9 @@
-class RelativePositionalBias(nn.Module):
-    def __init__(self, max_dist: int, n_head: int):
-        super().__init__()
-        self.max_dist = max_dist
-        self.n_head = n_head
-        self.pos_bias = nn.Parameter(torch.zeros((2 * int(self.max_dist) - 1, self.n_head)))
+    class RelativePositionalBias(nn.Module):
+        def __init__(self, max_dist: int, n_head: int):
+            super().__init__()
+            self.max_dist = max_dist
+            self.n_head = n_head
+            self.pos_bias = nn.Parameter(torch.zeros((2 * int(self.max_dist) - 1, self.n_head)))
 
     def forward(self, seq_len_q, seq_len_k, device):
         positions = torch.arange(end=seq_len_q, device=device).unsqueeze(dim=1) - torch.arange(end=seq_len_k, device=device).unsqueeze(dim=0)
